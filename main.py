@@ -5,7 +5,7 @@ load_dotenv()
 RocketInStToken = os.getenv("RocketInStToken")
 
 def main():
-    print("RocketInStToken:", RocketInStToken)
+    pass
 
 
 if __name__ == "__main__":
