@@ -57,13 +57,15 @@ async def ocr(img_path: str):
     print(f"Using device: {device}")
 
     # 画像を読み取ってグレースケールに変換
-    img = load_image(img_path)
+    img = load_image(img_path)[0]
 
-    img = np.array(img)
+    print(img.shape)
+
+    # img = np.array(img)
+    # print(img)
 
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    img_gray = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2RGB)
-    img = img_gray
+    img = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2RGB)
     # OCRの実行関数の定義
     # yomitokuのanalyzerは__call__で実行出来るけど内部でasyncio.runを使っているので、jupyter notebook上で直接実行できない。
     # なので、async関数を定義してから実行する形にする。

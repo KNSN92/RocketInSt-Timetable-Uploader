@@ -23,6 +23,7 @@ async def main():
         print("ocr開始")
         df = await ocr.ocr(test)
         print("ocr終了")
+        st.dataframe(df)
 
 
 
