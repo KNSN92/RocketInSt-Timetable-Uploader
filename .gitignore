@@ -12,3 +12,6 @@ wheels/
 .env
 
 TimeTableImages/*
+output.json
+
+.DS_Store
