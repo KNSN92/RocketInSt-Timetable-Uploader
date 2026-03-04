@@ -21,7 +21,7 @@ async def main():
             f.write(uploaded_img.read())
             print("画像保存")
         print("ocr開始")
-        df = await ocr.ocr(test)
+        df = await ocr.ocr(uploaded_img.name, test)
         print("ocr終了")
         st.dataframe(df)
 

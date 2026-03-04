@@ -12,6 +12,7 @@ wheels/
 .env
 
 TimeTableImages/*
+TimeTableCsvs/*
 output.json
 
 .DS_Store
