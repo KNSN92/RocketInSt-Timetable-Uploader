@@ -90,7 +90,7 @@ async def ocr(img_name: str, img_path: str):
     # pprint(table)
     df = pd.DataFrame(table)
 
-    df.to_json(f"TimeTableCsvs/{img_name}_raw.csv", force_ascii=False)
+    df.to_json(f"TimeTableCsvs/{img_name}_raw.json", force_ascii=False)
 
     # 年月日パターンを含むセルの行と列を特定
     date_pattern = r"\d{4}年\d{1,2}月\d{1,2}日"
@@ -103,6 +103,13 @@ async def ocr(img_name: str, img_path: str):
 
     # 年月日より上の行と左の列をdrop
     df = df.iloc[date_row_pos:, date_col_pos:]
+    df = df.reset_index(drop=True)
+
+    df.to_json(f"TimeTableCsvs/{img_name}_adjusted.json", force_ascii=False)
+
+    df = df[df[:] != ""].dropna(how="all")
+    df = df.drop(2, axis=1).drop(0, axis=0)
+
     # 空文字をNaNに置換し、全て空の行と列を削除
     df = df.replace("", np.nan).dropna(how="all").dropna(axis=1, how="all").fillna("")
     if df.shape[1] != len(ROOM_NAMES)+1:
@@ -123,5 +130,5 @@ async def ocr(img_name: str, img_path: str):
     # nanをNoneにする
     df = df.replace([np.nan], [None])
     # jsonにアウトプット
-    df.to_json(f"TimeTableCsvs/{img_name}_out.csv", force_ascii=False)
+    df.to_json(f"TimeTableCsvs/{img_name}_out.json", force_ascii=False)
     return df
