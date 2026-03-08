@@ -125,8 +125,3 @@ async def ocr(img_name: str, img_path: str):
     # jsonにアウトプット
     df.to_json(f"TimeTableCsvs/{img_name}_out.csv", force_ascii=False)
     return df
-
-
-if __name__=="__main__":
-    import asyncio
-    asyncio.run(main())
