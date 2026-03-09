@@ -103,12 +103,12 @@ async def ocr(img_name: str, img_path: str):
 
     # 年月日より上の行と左の列をdrop
     df = df.iloc[date_row_pos:, date_col_pos:]
+    df = df.drop(df.columns[df.index[date_col_pos+1]], axis=1).drop(df.index[date_row_pos], axis=0)
     df = df.reset_index(drop=True)
 
     df.to_json(f"TimeTableCsvs/{img_name}_adjusted.json", force_ascii=False)
 
     df = df[df[:] != ""].dropna(how="all")
-    df = df.drop(2, axis=1).drop(0, axis=0)
 
     # 空文字をNaNに置換し、全て空の行と列を削除
     df = df.replace("", np.nan).dropna(how="all").dropna(axis=1, how="all").fillna("")
